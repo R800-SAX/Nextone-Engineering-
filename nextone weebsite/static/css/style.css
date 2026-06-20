@@ -1,0 +1,293 @@
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#f4f7fb;
+    margin:0;
+    padding:0;
+}
+
+.custom-navbar{
+    background:#0b1f3a;
+    padding:15px 0;
+}
+
+.navbar-brand{
+    font-size:28px;
+    font-weight:700;
+}
+
+.nav-link{
+    color:white !important;
+    margin-left:10px;
+}
+
+.nav-link:hover{
+    color:#f4b400 !important;
+}
+
+.hero{
+    height:90vh;
+    background:
+    linear-gradient(
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.55)
+    ),
+    url('../images/hero1.jpg');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+    color:white;
+}
+
+.hero h1{
+    font-size:65px;
+    font-weight:700;
+}
+
+.hero p{
+    font-size:24px;
+    max-width:900px;
+    margin:auto;
+}
+
+.page-banner{
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    color:white;
+    padding:80px 0;
+    text-align:center;
+}
+
+.page-banner h1{
+    font-size:50px;
+    font-weight:700;
+}
+
+.section-title{
+    font-size:40px;
+    font-weight:700;
+    margin-bottom:40px;
+    color:#0b1f3a;
+}
+
+.solution-box{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    transition:.3s;
+    height:100%;
+}
+
+.solution-box:hover{
+    transform:translateY(-8px);
+}
+
+.product-card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    transition:.3s;
+    height:100%;
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+}
+
+.industry-card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    transition:.3s;
+    height:100%;
+}
+
+.industry-card:hover{
+    transform:translateY(-8px);
+}
+
+.project-card{
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.service-card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    transition:.3s;
+}
+
+.service-card:hover{
+    transform:translateY(-8px);
+}
+
+.stats{
+    background:#0b1f3a;
+    color:white;
+    padding:80px 0;
+}
+
+.stats h2{
+    font-size:55px;
+    font-weight:700;
+}
+
+.about-box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.about-box ul{
+    list-style:none;
+    padding:0;
+}
+
+.about-box li{
+    padding:10px 0;
+}
+
+.vision-section{
+    background:#f8fafc;
+    padding:80px 0;
+}
+
+.info-card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    height:100%;
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+
+.value-card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+    transition:.3s;
+}
+
+.value-card:hover{
+    transform:translateY(-8px);
+}
+
+.location-section{
+    padding:80px 0;
+}
+
+.location-card{
+    background:#0f172a;
+    color:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    max-width:800px;
+    margin:auto;
+}
+
+.contact-card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    height:100%;
+}
+
+.contact-card h5{
+    color:#1e3a8a;
+    margin-top:20px;
+    font-weight:700;
+}
+
+.contact-form-box{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.contact-form-box input,
+.contact-form-box textarea{
+    padding:15px;
+    border-radius:10px;
+}
+
+.contact-form-box button{
+    padding:12px 30px;
+    font-weight:600;
+}
+
+.footer-section{
+    background:#09162b;
+    color:white;
+    padding:60px 0;
+    margin-top:60px;
+}
+
+.footer-section h4,
+.footer-section h5{
+    color:#f4b400;
+}
+
+.footer-section hr{
+    background:white;
+}
+
+.whatsapp-float{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:#25D366;
+    color:white;
+    padding:15px 20px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:700;
+    z-index:9999;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.whatsapp-float:hover{
+    color:white;
+    transform:scale(1.05);
+}
+
+.btn-warning{
+    font-weight:600;
+    padding:12px 30px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:40px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.section-title{
+    font-size:30px;
+}
+
+.page-banner h1{
+    font-size:35px;
+}
+
+}
