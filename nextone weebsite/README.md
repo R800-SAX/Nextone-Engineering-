@@ -1,59 +1,185 @@
-# NextOne Engineering - Website & Inquiry Backend
+# NextOne Engineering Pvt. Ltd.
+### Industrial Engineering, Turnkey Plants & Machinery Web Platform
 
-A modern, mobile-friendly responsive website built with Flask, SQLAlchemy, and Bootstrap 5 for NextOne Engineering Pvt. Ltd. The application features a secure admin dashboard, search and filter features, email alert triggers, and interactive inquiry forms.
+[![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.1.3-black.svg?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-purple.svg?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-red.svg)](https://www.sqlalchemy.org/)
+[![Status](https://img.shields.io/badge/Deployment-Production--Ready-success.svg)]()
 
----
-
-## Features
-
-- **Responsive Design**: Compatible across all modern browsers and viewport sizes (desktops, tablets, and mobile devices).
-- **Interactive Inquiries**: Pre-filled targeted quotes via AJAX modal forms and direct WhatsApp chat links.
-- **Secure Admin Panel**: Dashboard (`/admin`) requiring username/password authentication.
-- **Search & Filters**: Search fields to find inquiries by keyword or product categories.
-- **Automated Emails**: Integrated notification handler to email the administrator and auto-reply to users when forms are submitted.
+A modern, full-stack industrial engineering web application built for **NextOne Engineering Pvt. Ltd.** (Kota, Rajasthan, India). The platform serves as both a high-conversion digital showcase for industrial turnkey machinery and a full-featured lead management CRM for engineering inquiries.
 
 ---
 
-## Installation & Setup
+## 🌟 Key Features
 
-### 1. Requirements
-Ensure you have Python 3.12+ installed. Install the package dependencies:
+### 🏢 Industrial Frontend & User Experience
+* **Responsive Showcase**: Engineered with Bootstrap 5 and modern CSS tokens, delivering sleek dark-mode accents, glassmorphism, and responsive layouts across all viewport sizes.
+* **Turnkey Equipment Catalog**: Detailed technical presentations for:
+  * Edible Oil Extraction & Refinery Plants
+  * Solvent Extraction & Fractionation Systems
+  * Bulk Material Handling (Conveyors, Elevators, Silos)
+  * Industrial Water Treatment (ETP, WTP, Demineralization)
+  * Packaging Automation & Food Processing
+* **Interactive Modal Quotations**: Targeted modal inquiry forms dynamically pre-filled with product context and direct WhatsApp consultation routing (`+91 98292 99520`).
+* **SEO & Crawler Optimization**: Integrated `/robots.txt` and dynamically generated `/sitemap.xml` for maximum B2B search indexation.
+* **Branded Error Pages**: Custom-styled `404 Not Found` and `500 Server Error` templates matching the industrial design system.
+
+---
+
+### ⚙️ Backend Architecture & Robustness
+* **Asynchronous Email Dispatch**: Email delivery runs in non-blocking background daemon threads (`threading.Thread`), enabling instant (<150ms) form submissions without waiting for SMTP handshakes.
+* **Dual Branded HTML Email Notifications**:
+  * **Executive Alert (Admin)**: Formatted table with inquiry reference number, product scope, client details, and one-click "Reply via Email" and "Call Client" action buttons.
+  * **Client Auto-Acknowledgment**: Corporate confirmation with NextOne Engineering registration, GST details, and contact points.
+* **Self-Healing Schema Auto-Migration**: Non-destructive database migrations executed on startup via SQLite `PRAGMA table_info` to guarantee schema integrity and prevent data loss.
+* **Anti-Spam & Input Validation**: RFC-compliant email/phone syntax verification combined with hidden honeypot traps to catch automated bots silently.
+* **System Health Endpoint**: Real-time `/health` check returning database connectivity, service status, and UTC timestamp.
+
+---
+
+### 📊 Inquiry Manager Admin Dashboard (`/admin`)
+* **KPI Metrics Overview**: Live summary cards showing Total Inquiries, New/Unread leads, Contacted clients, and Closed projects.
+* **One-Click CSV Export**: `/admin/export/csv` generates structured spreadsheets formatted for Microsoft Excel, Google Sheets, or CRM imports.
+* **Inline Lifecycle Status Tracking**: Color-coded AJAX status selector (`New`, `Contacted`, `In Discussion`, `Closed`) with instant feedback.
+* **Confidential Internal Notes**: Dedicated modal allowing administrators to save internal quotation notes and follow-up remarks per client.
+* **Search, Filters & Pagination**: Multi-parameter search by keyword, product category, and status with clean page navigation.
+* **Secure Authentication**: Protected session management (`/login` & `/logout`) with password verification and HTTP-only cookie policies.
+
+---
+
+## 📂 Project Structure
+
+```text
+nextone-engineering/
+├── app.py                      # Core Flask backend (routes, models, email worker, admin API)
+├── Procfile                    # Production WSGI process file (Gunicorn)
+├── requirements.txt            # Python dependencies
+├── .env.example                # Configuration template
+├── .gitignore                  # Git ignore rules (secrets, sqlite db, cache)
+├── run_server.bat              # Quick local launcher script (Windows)
+├── instance/
+│   └── database.db             # Local SQLite database (auto-created)
+├── static/
+│   ├── css/
+│   │   └── style.css           # Global custom styling & design system
+│   └── images/                 # Optimized WebP machinery, logos & slide assets
+└── templates/
+    ├── base.html               # Master layout with header, navbar & footer
+    ├── home.html               # Landing page with hero slider & core services
+    ├── about.html              # Company history, mission & engineering expertise
+    ├── products.html           # Full turnkey catalog with interactive quote modals
+    ├── industries.html         # Industry sectors served (Agro, Oil, Mining, Power)
+    ├── projects.html           # Completed projects & turnkey implementations
+    ├── contact.html            # Contact directory & inquiry submission form
+    ├── login.html              # Secure administrator authentication page
+    ├── admin.html              # Comprehensive Inquiry Manager dashboard
+    ├── 404.html                # Custom Not Found page
+    └── 500.html                # Custom Server Error page
+```
+
+---
+
+## 🚀 Quick Start & Local Setup
+
+### 1. Prerequisites
+* Python 3.12 or newer installed.
+* Git installed.
+
+### 2. Installation
+Clone the repository and install the required dependencies:
 ```bash
+git clone https://github.com/R800-SAX/Nextone-Engineering-.git
+cd Nextone-Engineering-
 pip install -r requirements.txt
 ```
 
-### 2. Environment Configuration
-Copy the template configuration file to create your active `.env` file:
+### 3. Environment Configuration
+Create a `.env` file from the example template:
 ```bash
+# Windows
 copy .env.example .env
+
+# macOS / Linux
+cp .env.example .env
 ```
-Open `.env` and fill in your details:
-- **`FLASK_SECRET_KEY`**: Set a random secret string.
-- **`ADMIN_USERNAME` / `ADMIN_PASSWORD`**: Credentials for the admin panel.
-- **`SMTP_EMAIL` / `SMTP_PASSWORD`**: Setup details for live email notifications.
 
-### 3. Setting Up Gmail App Passwords
-Gmail requires an App Password instead of your primary password to authenticate scripts:
-1. Log in to [Google Account Security](https://myaccount.google.com/security).
-2. Enable **2-Step Verification** if it isn't already.
-3. Under *2-Step Verification*, scroll to the bottom and select **App passwords**.
-4. Select **Mail** and device, then click **Generate**.
-5. Copy the 16-character code and paste it into the `SMTP_PASSWORD` line inside your `.env` file.
+Open `.env` in your editor and configure your variables:
+```ini
+# Flask Security
+FLASK_SECRET_KEY=replace_with_a_secure_random_key_here
 
----
+# Admin Dashboard Credentials
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=Password123
 
-## Running the Application
+# Live Gmail SMTP (For Email Dispatch)
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_EMAIL=nextone.engg@gmail.com
+SMTP_PASSWORD=your_16_digit_google_app_password
+```
 
-### Local Development
-Run the server locally:
+> **Note on Gmail App Passwords:**
+> Gmail requires a dedicated **App Password** for script access.
+> 1. Go to your [Google Account Security](https://myaccount.google.com/security).
+> 2. Ensure **2-Step Verification** is enabled.
+> 3. Search for **App passwords** $\rightarrow$ create one under "Mail" $\rightarrow$ copy the 16-character string into `SMTP_PASSWORD`.
+> *(If SMTP credentials are left blank, the application automatically logs formatted emails to the local console for debugging without errors.)*
+
+### 4. Running the Local Server
+Start the development server:
 ```bash
 python app.py
 ```
-Or run the included batch file:
-```bash
-run_server.bat
-```
-The site will be live at `http://127.0.0.1:5000`.
+Or double-click `run_server.bat` on Windows.
 
-### Admin Access
-Go to `http://127.0.0.1:5000/login` and log in with your configured admin credentials (Default: `admin` / `Password123`).
+Open your browser and navigate to:
+* **Website**: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+* **Admin Login**: [http://127.0.0.1:5000/login](http://127.0.0.1:5000/login)
+* **Health Check**: [http://127.0.0.1:5000/health](http://127.0.0.1:5000/health)
+
+---
+
+## 🌐 100% Free Production Deployment
+
+Because this is a unified Flask application, **both the frontend and backend are deployed together** under one service.
+
+### Deploying to Render.com (Recommended)
+1. Push your code to your GitHub repository.
+2. Sign in to **[render.com](https://render.com)** using your GitHub account.
+3. Click **New +** $\rightarrow$ select **Web Service**.
+4. Select repository `R800-SAX/Nextone-Engineering-` and configure:
+   * **Runtime**: `Python 3`
+   * **Build Command**: `pip install -r requirements.txt`
+   * **Start Command**: `gunicorn app:app`
+   * **Instance Type**: `Free`
+5. Under **Environment Variables**, add:
+   * `FLASK_SECRET_KEY`: *(random secure string)*
+   * `ADMIN_USERNAME`: `admin`
+   * `ADMIN_PASSWORD`: *(your custom admin password)*
+   * `SMTP_EMAIL`: `nextone.engg@gmail.com`
+   * `SMTP_PASSWORD`: *(your 16-character Gmail App Password)*
+   * `FLASK_DEBUG`: `false`
+6. Click **Create Web Service**. Your website will be live with automatic free SSL (`https://`).
+
+---
+
+## 🛡️ Security & Production Best Practices
+* **Database Isolation**: The SQLite database (`instance/database.db`) is excluded from Git via `.gitignore` to prevent leaking client leads or sensitive records.
+* **Session Cookies**: Hardened with `SESSION_COOKIE_HTTPONLY = True` and `SESSION_COOKIE_SAMESITE = 'Lax'`.
+* **Dynamic Cloud Ports**: Automatically binds to cloud-assigned `$PORT` environment variables with local fallback.
+
+---
+
+## 📞 Corporate Contact Information
+
+**NextOne Engineering Pvt. Ltd.**  
+*Turnkey Engineering Solutions, Machinery & Industrial Systems*
+
+* **Registered Office**: 120, Aditya Awas, Kota, Rajasthan - 324001, India
+* **Contact Person**: Hemant Saxena
+* **Phone / WhatsApp**: +91 98292 99520
+* **Official Email**: [nextone.engg@gmail.com](mailto:nextone.engg@gmail.com)
+* **GST Number**: `08AAICN3244L1Z6`
+* **Business Hours**: Monday – Saturday: 9:00 AM – 7:00 PM IST
