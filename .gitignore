@@ -1,0 +1,32 @@
+# Python environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment configurations & secrets (CRITICAL)
+.env
+instance/.env
+
+# Local SQLite Database (exclude to avoid overwriting production or committing client leads)
+instance/*.db
+instance/*.sqlite
+instance/*.sqlite3
+*.db
+*.sqlite
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
