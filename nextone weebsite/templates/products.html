@@ -1,34 +1,604 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "base.html" %}
 
-<title>Products</title>
+{% block content %}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom Styling for Interactive Product Cards -->
+<style>
+    .product-list-links {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .product-item-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--color-text-dark);
+        padding: 10px 14px;
+        text-align: left;
+        border-radius: 8px;
+        font-size: 14.5px;
+        font-weight: 600;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+    }
+    .product-item-btn i {
+        font-size: 12px;
+        transition: transform 0.25s ease;
+    }
+    .product-item-btn:hover {
+        background: rgba(245, 158, 11, 0.07);
+        color: var(--color-accent-hover);
+        border-color: rgba(245, 158, 11, 0.15);
+        transform: translateX(6px);
+    }
+    .product-item-btn:hover i {
+        transform: translateX(4px);
+    }
+    .product-card {
+        border: 1px solid var(--color-border);
+        background-color: var(--color-card-bg);
+        border-radius: 16px;
+        padding: 24px !important;
+        box-shadow: var(--shadow-md);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(245, 158, 11, 0.25);
+    }
+    
+    /* Mobile optimization for premium modal */
+    @media (max-width: 576px) {
+        #productDetailModal .modal-dialog {
+            margin: 12px;
+        }
+        #productDetailModal .modal-content {
+            border-radius: 16px !important;
+        }
+        #productDetailModal .modal-header {
+            padding: 16px 16px 8px 16px !important;
+        }
+        #productDetailModal .modal-body {
+            padding: 16px !important;
+        }
+        #productDetailModal .col-md-5 {
+            margin-bottom: 8px;
+        }
+        #productDetailModal .col-md-5 > div:first-child {
+            height: 180px !important;
+        }
+        #detailDescription {
+            font-size: 13.5px !important;
+            line-height: 1.5 !important;
+            margin-bottom: 16px !important;
+        }
+        #ctaContainer {
+            margin-top: 16px !important;
+        }
+    }
+</style>
 
-<link rel="stylesheet"
-href="{{ url_for('static', filename='css/style.css') }}">
+<section class="page-banner">
+    <div class="container text-center">
+        <h1>Our Products & Solutions</h1>
+        <p class="mt-3">
+            Click on any specific equipment or plant below to view details, specifications, and photos.
+        </p>
+    </div>
+</section>
 
-</head>
+<section class="container py-5">
+    <div class="row g-4">
 
-<body>
+        <!-- Card 1: Edible Oil Processing Plants -->
+        <div class="col-md-6 col-lg-4">
+            <div class="product-card d-flex flex-column h-100 justify-content-between">
+                <div>
+                    <div class="product-card-image-wrapper mb-3" style="overflow: hidden; border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); height: 160px;">
+                        <img src="{{ url_for('static', filename='images/oil_refinery_premium.webp') }}" alt="Edible Oil Processing Plants" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                    </div>
+                    <h3 class="fs-5 mb-3"><i class="fa-solid fa-droplet text-warning me-2"></i> Oil Processing Plants</h3>
+                    <div class="product-list-links">
+                        <button class="product-item-btn" onclick="openProductDetailModal('Solvent Extraction Plant')">
+                            Solvent Extraction Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Oil Refinery Plant')">
+                            Oil Refinery Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Oil Mill')">
+                            Oil Mill / Expeller Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Fractionation Plant')">
+                            Fractionation Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Lecithin Plant')">
+                            Lecithin Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="page-banner">
-<h1>Products</h1>
+        <!-- Card 2: Material Handling Equipment -->
+        <div class="col-md-6 col-lg-4">
+            <div class="product-card d-flex flex-column h-100 justify-content-between">
+                <div>
+                    <div class="product-card-image-wrapper mb-3" style="overflow: hidden; border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); height: 160px;">
+                        <img src="{{ url_for('static', filename='images/material_handling_premium.webp') }}" alt="Material Handling Equipment" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                    </div>
+                    <h3 class="fs-5 mb-3"><i class="fa-solid fa-gears text-warning me-2"></i> Material Handling</h3>
+                    <div class="product-list-links">
+                        <button class="product-item-btn" onclick="openProductDetailModal('Belt Conveyor')">
+                            Belt Conveyor <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Screw Conveyor')">
+                            Screw Conveyor <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Chain Conveyor')">
+                            Chain Conveyor <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Bucket Elevator')">
+                            Bucket Elevator <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Roller Conveyor')">
+                            Roller Conveyor <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Vibrating Feeder')">
+                            Vibrating Feeder <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3: Grain Handling & Processing -->
+        <div class="col-md-6 col-lg-4">
+            <div class="product-card d-flex flex-column h-100 justify-content-between">
+                <div>
+                    <div class="product-card-image-wrapper mb-3" style="overflow: hidden; border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); height: 160px;">
+                        <img src="{{ url_for('static', filename='images/grain_silos_premium.webp') }}" alt="Grain Handling & Processing" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                    </div>
+                    <h3 class="fs-5 mb-3"><i class="fa-solid fa-wheat-awn text-warning me-2"></i> Grain Processing</h3>
+                    <div class="product-list-links">
+                        <button class="product-item-btn" onclick="openProductDetailModal('Grain Cleaner')">
+                            Grain Cleaner <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Grain Grader')">
+                            Grain Grader <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Destoner')">
+                            Destoner Machine <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4: Packaging Solutions -->
+        <div class="col-md-6 col-lg-4">
+            <div class="product-card d-flex flex-column h-100 justify-content-between">
+                <div>
+                    <div class="product-card-image-wrapper mb-3" style="overflow: hidden; border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); height: 160px;">
+                        <img src="{{ url_for('static', filename='images/packaging_machinery_premium.webp') }}" alt="Packaging Solutions" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                    </div>
+                    <h3 class="fs-5 mb-3"><i class="fa-solid fa-box-open text-warning me-2"></i> Packaging Solutions</h3>
+                    <div class="product-list-links">
+                        <button class="product-item-btn" onclick="openProductDetailModal('Oil Filling Machine')">
+                            Oil Filling Machine <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Labeling Machine')">
+                            Labeling Machine <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Packaging Line')">
+                            Complete Packaging Line <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5: Water & Environmental Solutions -->
+        <div class="col-md-6 col-lg-4">
+            <div class="product-card d-flex flex-column h-100 justify-content-between">
+                <div>
+                    <div class="product-card-image-wrapper mb-3" style="overflow: hidden; border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); height: 160px;">
+                        <img src="{{ url_for('static', filename='images/water_treatment_premium.webp') }}" alt="Water & Environmental Solutions" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                    </div>
+                    <h3 class="fs-5 mb-3"><i class="fa-solid fa-water text-warning me-2"></i> Environmental Solutions</h3>
+                    <div class="product-list-links">
+                        <button class="product-item-btn" onclick="openProductDetailModal('Water Treatment Plant (WTP)')">
+                            Water Treatment Plant (WTP) <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Effluent Treatment Plant (ETP)')">
+                            Effluent Treatment Plant (ETP) <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6: Engineering & Special Plants -->
+        <div class="col-md-6 col-lg-4">
+            <div class="product-card d-flex flex-column h-100 justify-content-between">
+                <div>
+                    <div class="product-card-image-wrapper mb-3" style="overflow: hidden; border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); height: 160px;">
+                        <img src="{{ url_for('static', filename='images/engineering_projects_premium.webp') }}" alt="Engineering & Special Plants" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                    </div>
+                    <h3 class="fs-5 mb-3"><i class="fa-solid fa-screwdriver-wrench text-warning me-2"></i> Turnkey & Special Plants</h3>
+                    <div class="product-list-links">
+                        <button class="product-item-btn" onclick="openProductDetailModal('Instant Tea Plant')">
+                            Instant Tea Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Cattle Feed Plant')">
+                            Cattle Feed Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                        <button class="product-item-btn" onclick="openProductDetailModal('Soya Chunks Plant')">
+                            Soya Chunks Plant <i class="fa-solid fa-chevron-right ms-auto text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- PREMIUM TWO-PANE PRODUCT DETAIL MODAL -->
+<div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4" style="background: rgba(10, 15, 29, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); color: #ffffff; border: 1px solid rgba(255,255,255,0.08) !important; box-shadow: 0 25px 60px rgba(0,0,0,0.65);">
+            
+            <div class="modal-header border-bottom-0 pb-0">
+                <h4 class="modal-title fw-bold text-uppercase" id="detailModalTitle" style="color: #f59e0b; letter-spacing: -0.5px;"></h4>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="row g-4">
+                    
+                    <!-- Left Column: Product Image & Badges -->
+                    <div class="col-md-5">
+                        <div class="rounded-3 overflow-hidden mb-3 border border-secondary" style="height: 250px; background-color: #111827;">
+                            <img id="detailModalImg" src="" alt="" class="w-100 h-100" style="object-fit: cover;">
+                        </div>
+                        <div class="p-3 rounded bg-dark bg-opacity-50 border border-secondary">
+                            <h6 class="text-warning fw-bold uppercase small mb-2"><i class="fa-solid fa-circle-info me-1"></i> Technical Standards</h6>
+                            <ul class="list-unstyled mb-0 small" style="color: #e5e7eb;">
+                                <li class="mb-1"><i class="fa-solid fa-circle-check text-warning me-1"></i> ISO 9001:2015 Compliant</li>
+                                <li class="mb-1"><i class="fa-solid fa-circle-check text-warning me-1"></i> Highly Energy Efficient</li>
+                                <li><i class="fa-solid fa-circle-check text-warning me-1"></i> 1-Year Structural Warranty</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Description, Specs, and Dynamic CTAs -->
+                    <div class="col-md-7">
+                        <div id="detailDescription" class="mb-4" style="font-size: 14.5px; line-height: 1.6; color: #e5e7eb;"></div>
+                        
+
+                        <!-- CTA Section -->
+                        <div class="d-flex flex-column gap-2 mt-4" id="ctaContainer">
+                            <div class="d-flex flex-column flex-sm-row gap-2">
+                                <a id="detailWhatsAppBtn" href="" target="_blank" class="btn btn-outline-success fw-bold flex-grow-1" style="border-color: #25D366; color: #25D366; padding: 12px;">
+                                    <i class="fa-brands fa-whatsapp me-2"></i> Inquire on WhatsApp
+                                </a>
+                                <button onclick="toggleInquiryForm()" class="btn btn-warning fw-bold flex-grow-1" style="padding: 12px;">
+                                    <i class="fa-regular fa-envelope me-2"></i> Request Quote
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Success Message Block -->
+                        <div id="modalSuccessBlock" class="d-none text-center py-4 px-3 rounded-3 border border-success bg-success bg-opacity-10 mt-4">
+                            <i class="fa-solid fa-circle-check text-success fs-1 mb-3"></i>
+                            <h5 class="text-success fw-bold">Query Submitted!</h5>
+                            <p class="mb-0 text-light" style="font-size: 14px; line-height: 1.5;">Thank you for contacting us. Your requirements have been successfully sent to our engineering team. We will get back to you shortly.</p>
+                        </div>
+                        
+                        <!-- Embedded Slide-down Inquiry Form -->
+                        <div id="embeddedFormBlock" class="d-none mt-4 p-3 rounded-3 bg-dark bg-opacity-70 border border-secondary">
+                            <h6 class="text-warning fw-bold small mb-3"><i class="fa-solid fa-paper-plane me-1"></i> Submit Quick Requirement</h6>
+                            <div id="modalAlert" class="alert d-none mb-3" style="font-size: 13.5px;"></div>
+                            
+                            <form id="modalInquiryForm">
+                                <input type="hidden" id="inquiryProduct" name="product">
+                                <input type="text" name="website_source" style="display:none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+                                <div class="row g-2">
+                                    <div class="col-sm-6">
+                                        <input type="text" name="name" class="form-control bg-transparent text-white border-secondary" placeholder="Your Name" required style="padding: 10px;">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="email" name="email" class="form-control bg-transparent text-white border-secondary" placeholder="Email" required style="padding: 10px;">
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" name="phone" class="form-control bg-transparent text-white border-secondary" placeholder="Phone Number" required style="padding: 10px;">
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea name="message" class="form-control bg-transparent text-white border-secondary" rows="3" placeholder="Tell us about your capacity, location and timeframe..." required style="padding: 10px;"></textarea>
+                                    </div>
+                                    <div class="col-12 d-flex gap-2 mt-2">
+                                        <button type="submit" id="modalSubmitBtn" class="btn btn-warning flex-grow-1 fw-bold">Submit Query</button>
+                                        <button type="button" onclick="toggleInquiryForm()" class="btn btn-outline-secondary">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 </div>
 
-<div class="container py-5">
+<!-- DYNAMIC PRODUCT DATABASE & MODAL CONTROL -->
+<script>
+// Specific product content database mappings
+const productDb = {
+    // OIL PROCESSING
+    "Solvent Extraction Plant": {
+        desc: "Turnkey solvent extraction plants engineered to extract vegetable oil from oilseeds such as Soybean, Sunflower, Mustard, Cottonseed, and Rice Bran using commercial hexane. Operating at capacities ranging from 50 to 2,000 Tons Per Day (TPD), these plants feature highly efficient extraction loops, meal desolventizing, and complete solvent recovery systems. Designed for maximum profitability, they guarantee minimal solvent loss of under 0.5% by weight of seed. The construction meets high-standard industrial safety regulations, incorporating safety locks, flameproof fittings, and an eco-friendly zero liquid discharge (ZLD) design.",
+        image: "solvent_extraction_plant.webp"
+    },
+    "Oil Refinery Plant": {
+        desc: "Advanced industrial refinery setups for neutralizing, bleaching, winterizing, and deodorizing crude oils to produce high-grade, shelf-stable, odorless, and premium edible oil matching international food safety standards. These setups are highly versatile, suitable for processing Soybean, Palm, Sunflower, Rice Bran, Mustard, and Cottonseed oils. Available in capacities from 10 TPD to 500 TPD, they integrate highly automated process monitoring systems and energy-recovery heat exchangers. Additionally, the system employs a deep vacuum deodorizer to ensure maximum product stability and taste profile.",
+        image: "oil_refinery_plant.webp"
+    },
+    "Oil Mill": {
+        desc: "High-pressure mechanical expelling plants for crushing oilseeds. Engineered for robust continuous operation and maximum mechanical oil expelling yields, these mills typically reduce residual oil in the cake to just 5-7%. They feature heavy-duty cast steel construction with hardened gears, steam conditioners, and pre-heaters for optimized seed preparation. The design also incorporates an easy screw assembly extraction mechanism to facilitate low-downtime maintenance and high efficiency.",
+        image: "oil_mill.webp"
+    },
+    "Fractionation Plant": {
+        desc: "Dry fractionation plant systems designed to separate liquid (olein) and solid (stearin) phases of palm oil and other fats. This is a 100% chemical-free mechanical dry process utilizing controlled cooling crystallization and high-pressure membrane filtration. It features a fully automated crystallization system that controls cooling curves to achieve accurate separation matching distinct cloud point target parameters, utilizing premium membrane filter presses for clean partition.",
+        image: "oil_refinery_plant.webp"
+    },
+    "Lecithin Plant": {
+        desc: "Industrial by-product processing plants designed to produce high-quality lecithin from edible oil degumming streams, primarily utilizing Soybean and Sunflower gums. The system features horizontal thin-film evaporators operating under a high vacuum to achieve consistent moisture removal down to below 1% while ensuring precise color and consistency control. It includes integrated direct cooling packaging discharge loops to prepare the lecithin for immediate storage or transit.",
+        image: "oil_refinery_plant.webp"
+    },
 
-<ul>
-<li>Conveyors</li>
-<li>Bucket Elevators</li>
-<li>Screw Conveyors</li>
-<li>Grain Cleaning Equipment</li>
-<li>Oil Packaging Machines</li>
-<li>Refining Plant Machinery</li>
-</ul>
+    // MATERIAL HANDLING
+    "Belt Conveyor": {
+        desc: "Heavy-duty belt conveying equipment designed for bulk transport of coal, grains, oilseeds, and ores. It features a robust structure with dust-proof covers, high-grade rollers, and custom conveyor widths from 400mm to 1600mm. The conveyor can handle incline gradients of up to 25 degrees using custom cleated belts. Equipped with tough, wear-resistant rubber belts matching industrial load specifications, it integrates essential safety features like pull-chord switches and speed monitoring sensors.",
+        image: "belt_conveyor.webp"
+    },
+    "Screw Conveyor": {
+        desc: "High-grade tubular and U-trough screw conveyors designed for horizontal or inclined dust-tight conveying of fine powders, flakes, and sticky grains. Available in helicoid or sectional screw flight configurations, these conveyors can be fabricated from carbon steel or food-grade stainless steel (SS304/SS316). They are equipped with intermediate hanger bearings to support long conveyor spans, and completely dust-proof split covers combined with air-purged shaft seals to prevent product loss and environmental contamination.",
+        image: "screw_conveyor.webp"
+    },
+    "Chain Conveyor": {
+        desc: "Heavy-capacity drag chain and redler conveyors engineered for flat horizontal conveying of abrasive bulk materials and high-density agricultural seeds. They are capable of conveying bulk volumes up to 300 Tons Per Hour (TPH) using robust double-strand links with hardened flight attachments. For quiet, power-efficient operation, they include low-friction wear-strips (UHMW-PE liners). The systems are fully equipped with safety components, including overflow sensors and zero-speed controllers.",
+        image: "chain_conveyor.webp"
+    },
+    "Bucket Elevator": {
+        desc: "Vertical material lift elevators designed for continuous bulk agricultural and industrial transport, capable of reaching discharge heights up to 45 meters. They feature reinforced double-casing trunking for absolute structural rigidity, along with low-spill drop geometries. Depending on the application, they can be configured with seamless HDPE, nylon, or pressed steel buckets. For safety under full load, they come standard with backstop gears to prevent any accidental backward roll.",
+        image: "bucket_elevator.webp"
+    },
+    "Roller Conveyor": {
+        desc: "Powered or gravity-driven roller conveyors engineered for smooth material transit of boxes, oil tins, drums, and heavy unit loads. Constructed with heavy-duty galvanized steel or stainless steel rollers, they feature optimized roller spacing to prevent load drag. They can be integrated with variable frequency drive (VFD) speed controllers, as well as pneumatic stops, pushers, and sorters to automate and optimize logistics workflows.",
+        image: "roller_conveyor.webp"
+    },
+    "Vibrating Feeder": {
+        desc: "High-frequency electromagnetic and electromechanical vibrating feeders designed for consistent volumetric feeding of bulk materials into grinders, screeners, and processing loops. They are driven by maintenance-free electromagnetic systems and feature adjustable feed rate controls via thyristor controllers. The feeders are constructed with abrasion-resistant steel wear liners and are available in dust-tight enclosed tub versions for handling fine powders cleanly.",
+        image: "vibrating_feeder.webp"
+    },
 
-</div>
+    // GRAIN HANDLING
+    "Grain Cleaner": {
+        desc: "High-efficiency seed cleaning and scalping systems designed to remove large impurities, straw, dust, and undersized shrivelled grains. Operating at capacities from 5 TPH to 150 TPH, these systems use multi-deck vibrating sieves with adjustable screen angles and eccentric vibratory strokes. They feature quick-change modular sieve frames for fast seed variety swaps and incorporate dual aspiration loops with cyclone dust collectors for complete dust control.",
+        image: "grain_cleaner.webp"
+    },
+    "Grain Grader": {
+        desc: "Precision rotary and vibrating grading systems engineered to sort clean grains by physical dimension and thickness into premium-grade batches with a sorting accuracy exceeding 98%. Featuring a food-safe design with dust-tight enclosures, the graders use self-cleaning screens equipped with rubber ball cleaning systems to prevent clogging. They offer multiple sorting and grading screen configurations to handle various grains.",
+        image: "grain_grader.webp"
+    },
+    "Destoner": {
+        desc: "Dry destoning machines designed to separate stones, mud clods, glass, and metal fractions from lighter agricultural seeds based on specific gravity differences. These machines achieve a stoneless separation with a 99.9% clean grain output rate. They feature precision fluidization air control via integrated pressure fans, a vibrating screen deck with an adjustable tilt angle, and option for low-maintenance air recycling systems to save energy.",
+        image: "destoner.webp"
+    },
 
-</body>
-</html>
+    // PACKAGING
+    "Oil Filling Machine": {
+        desc: "High-precision automated filling systems designed for packaging edible oil into PET bottles, jerrycans, tins, and pouches. Employing advanced mass-flow or loadcell filling technology, they guarantee an absolute dosing accuracy of ±0.1% of the target weight. They feature no-drip pneumatic nozzle manifolds with suck-back functionality and hygienic SS316 cleanable product contact parts. Available in both rotary or inline multi-head configurations to meet different production capacities.",
+        image: "oil_filling_machine.webp"
+    },
+    "Labeling Machine": {
+        desc: "High-speed linear and rotary self-adhesive and wet-glue labeling machinery for applying front, back, or wrap-around labels on round, flat, and square oil bottles. Capable of throughput rates up to 150 bottles per minute, the machines utilize microprocessor-controlled stepper motor applicator heads for precise label alignment. They include integrated sensors to detect missing labels and misaligned containers, with an option for in-built hot foil or inkjet batch code printers.",
+        image: "labeling_machine.webp"
+    },
+    "Packaging Line": {
+        desc: "Complete turnkey packaging integration loops that synchronize depalletizing, bottle air rinsers, filling, capping, inline checkweighers, labeling, shrink wrapping, and case packing. Engineered for end-to-end line capacities from 2,000 to 12,000 bottles per hour (BPH), these systems are controlled via a central PLC panel with user-friendly touchscreen interfaces. They include safety-interlocked enclosure curtains and are configured to handle varying bottle dimensions with minimal swap tooling.",
+        image: "packaging_line.webp"
+    },
+
+    // WATER
+    "Water Treatment Plant (WTP)": {
+        desc: "Custom water purification plants designed for industrial applications. These systems integrate multi-grade sand filters, activated carbon filters, softening units, and high-pressure reverse osmosis (RO) membrane units to match specific processing requirements, achieving filtration capacities from 2,000 LPH to over 100,000 LPH. The RO systems feature automatic membrane purging and CIP wash blocks, ensuring a TDS reduction rate exceeding 98.5%. They are mounted on stainless steel skids for rapid site deployment.",
+        image: "water_treatment_plant_wtp.webp"
+    },
+    "Effluent Treatment Plant (ETP)": {
+        desc: "Turnkey industrial wastewater treatment systems configured to treat complex organic effluents from solvent extraction and refining operations, ensuring full compliance with national environmental regulations. The treatment process combines physicochemical treatment, aeration, biological clarifiers, and oil & grease traps. The plant also integrates fully automated sludge drying beds and filter press blocks, and can be customized to achieve Zero Liquid Discharge (ZLD) reclamation standards.",
+        image: "effluent_treatment_plant_etp.webp"
+    },
+
+    // TURNKEY & SPECIAL
+    "Instant Tea Plant": {
+        desc: "Advanced industrial extraction, evaporation, concentration, and spray drying plants to manufacture high-yield, perfectly soluble instant tea powder from green or black tea leaves. The process utilizes continuous counter-current extraction under controlled temperatures, a specialized aroma recovery module to capture and re-inject volatile aromas, multi-stage vacuum falling film evaporators, and a spray drying tower with a built-in fluidized cooling bed for superior product texture and dissolving characteristics.",
+        image: "solvent_extraction_plant.webp"
+    },
+    "Cattle Feed Plant": {
+        desc: "Turnkey manufacturing plants for producing high-nutrition animal and cattle feed pellets, with processing capacities from 2 TPH to 50 TPH. The line integrates raw material silos, automated batch weighing, fine grinding, uniform mixing, steam conditioning for starch gelatinization, pelletizing, and cooling loops. The pellet mills are built with heavy-duty twin-roll gear drives and the entire operation is managed by a complete automated PLC batching control system.",
+        image: "grain_silos_premium.webp"
+    },
+    "Soya Chunks Plant": {
+        desc: "Extrusion processing lines to manufacture Textured Vegetable Protein (TVP) or Soya Chunks/Bari from defatted soy flour. High-quality co-rotating twin-screw extruders with zoned barrel heating ensure a perfect chewiness and texture profile. The line includes custom die heads to form chunks, flakes, or minced shapes, a continuous multi-pass conveyor dryer (steam or gas heated), and optional flavor seasoning drum coating systems for product customization.",
+        image: "packaging_line.webp"
+    }
+};
+
+function openProductDetailModal(productName) {
+    const data = productDb[productName];
+    if (!data) return;
+    
+    // Set text and image
+    document.getElementById('detailModalTitle').textContent = productName;
+    document.getElementById('detailDescription').textContent = data.desc;
+    document.getElementById('detailModalImg').src = "static/images/" + data.image;
+    document.getElementById('detailModalImg').alt = productName;
+    
+    // Configure WhatsApp redirect URL
+    const whatsappText = `Hello NextOne Engineering,\n\nI am interested in learning more about your "${productName}" and would like to receive details/specifications.`;
+    document.getElementById('detailWhatsAppBtn').href = `https://wa.me/919829299520?text=${encodeURIComponent(whatsappText)}`;
+    
+    // Set hidden fields
+    document.getElementById('inquiryProduct').value = productName;
+    
+    // Hide embedded form and success block by default, show CTAs
+    document.getElementById('embeddedFormBlock').classList.add('d-none');
+    document.getElementById('modalSuccessBlock').classList.add('d-none');
+    document.getElementById('ctaContainer').classList.remove('d-none');
+    
+    // Show Modal
+    const modalEl = document.getElementById('productDetailModal');
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+}
+
+function toggleInquiryForm() {
+    const formBlock = document.getElementById('embeddedFormBlock');
+    formBlock.classList.toggle('d-none');
+    
+    if (!formBlock.classList.contains('d-none')) {
+        // Clear previous alert messages
+        const alertDiv = document.getElementById('modalAlert');
+        alertDiv.classList.add('d-none');
+        alertDiv.className = 'alert d-none';
+        
+        // Scroll the modal body down to show the form
+        setTimeout(() => {
+            const modalEl = document.getElementById('productDetailModal');
+            modalEl.querySelector('.modal-body').scrollTop = formBlock.offsetTop;
+        }, 200);
+    }
+}
+
+// Embedded Form submit handler
+document.getElementById('modalInquiryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('modalSubmitBtn');
+    const alertDiv = document.getElementById('modalAlert');
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
+    
+    const productName = document.getElementById('inquiryProduct').value;
+    
+    const formData = {
+        name: this.elements['name'].value,
+        email: this.elements['email'].value,
+        phone: this.elements['phone'].value,
+        message: this.elements['message'].value,
+        product: productName,
+        website_source: this.elements['website_source'] ? this.elements['website_source'].value : ''
+    };
+    
+    fetch('/api/inquire', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Server responded with status: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Submit Query';
+        
+        if (data.success) {
+            document.getElementById('modalInquiryForm').reset();
+            
+            // Hide form and buttons, display clean success block inside modal
+            document.getElementById('embeddedFormBlock').classList.add('d-none');
+            document.getElementById('ctaContainer').classList.add('d-none');
+            
+            const successBlock = document.getElementById('modalSuccessBlock');
+            successBlock.classList.remove('d-none');
+        } else {
+            alertDiv.classList.remove('d-none');
+            alertDiv.className = 'alert alert-danger border-0 text-center py-2';
+            alertDiv.style.backgroundColor = 'rgba(220, 38, 38, 0.2)';
+            alertDiv.style.color = '#fca5a5';
+            alertDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation me-2"></i>' + (data.error || 'Submission failed.');
+        }
+    })
+    .catch(error => {
+        console.warn('API submission failed, attempting FormSubmit fallback', error);
+        
+        fetch('https://formsubmit.co/ajax/nextone.engg@gmail.com', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                Name: formData.name,
+                Email: formData.email,
+                Phone: formData.phone,
+                Message: formData.message,
+                Subject: `Product Inquiry: ${formData.product}`
+            })
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('FormSubmit responded with error');
+            return res.json();
+        })
+        .then(data => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Query';
+            document.getElementById('modalInquiryForm').reset();
+            
+            // Hide form and buttons, display clean success block inside modal
+            document.getElementById('embeddedFormBlock').classList.add('d-none');
+            document.getElementById('ctaContainer').classList.add('d-none');
+            
+            const successBlock = document.getElementById('modalSuccessBlock');
+            successBlock.classList.remove('d-none');
+        })
+        .catch(err => {
+            console.error('FormSubmit fallback failed', err);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Query';
+            
+            alertDiv.classList.remove('d-none');
+            alertDiv.className = 'alert alert-danger border-0 text-center py-2';
+            alertDiv.style.backgroundColor = 'rgba(220, 38, 38, 0.2)';
+            alertDiv.style.color = '#fca5a5';
+            alertDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation me-2"></i>' + 'Failed to send inquiry. Please try again or email us directly.';
+        });
+    });
+});
+
+// Automatically open product modal if passed in URL query param (?product=Name)
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productParam = urlParams.get('product');
+    if (productParam && productDb[productParam]) {
+        setTimeout(() => {
+            openProductDetailModal(productParam);
+        }, 300);
+    }
+});
+</script>
+
+{% endblock %}

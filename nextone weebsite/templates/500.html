@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-banner py-5 text-center">
+    <div class="container py-4">
+        <h1 class="display-3 fw-bold mb-3"><span style="color: #ef4444;">500</span> - Server Error</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 600px;">
+            An unexpected server issue occurred while processing your request. Our technical team has been notified.
+        </p>
+        <div class="mt-4 d-flex justify-content-center gap-3">
+            <a href="/" class="btn btn-warning fw-bold px-4 py-2">
+                <i class="fa-solid fa-house me-2"></i> Return Home
+            </a>
+            <a href="/contact" class="btn btn-outline-warning fw-bold px-4 py-2">
+                <i class="fa-solid fa-envelope me-2"></i> Contact Support
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

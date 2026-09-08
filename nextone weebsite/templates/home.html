@@ -2,348 +2,253 @@
 
 {% block content %}
 
-<!-- HERO SECTION -->
-
-<section class="hero">
-
-    <div class="container">
-
-        <h1>
-            NextOne Engineering Pvt. Ltd.
-        </h1>
-
-        <p>
-            Engineering Innovation. Delivering Excellence.
-        </p>
-
-        <p>
-            Turnkey Solutions for Edible Oil Extraction,
-            Refining Plants, Material Handling Systems,
-            Grain Processing & Industrial Engineering Projects.
-        </p>
-
-        <a href="/products" class="btn btn-warning btn-lg mt-3">
-            Explore Products
-        </a>
-
+<!-- Hero Slideshow Carousel -->
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+    <!-- Carousel Indicators -->
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
     </div>
 
-</section>
-
-<!-- ABOUT PREVIEW -->
-
-<section class="container py-5">
-
-    <div class="row align-items-center">
-
-        <div class="col-lg-6">
-
-            <h2 class="section-title">
-                About NextOne Engineering
-            </h2>
-
-            <p>
-                NextOne Engineering Pvt. Ltd. is a trusted engineering
-                solutions company specializing in industrial equipment,
-                turnkey projects, plant consultancy and engineering services.
-            </p>
-
-            <p>
-                With over 30 years of combined industry experience,
-                we deliver innovative, reliable and cost-effective
-                engineering solutions for industries worldwide.
-            </p>
-
-            <a href="/about" class="btn btn-primary">
-                Read More
+    <!-- Carousel Items -->
+    <div class="carousel-inner">
+        <!-- Slide 1: Edible Oil Plants -->
+        <div class="carousel-item active">
+            <a href="/products" class="hero-carousel-link" aria-label="Explore Edible Oil Plants">
+                <div class="carousel-slide-image-wrapper">
+                    <img src="{{ url_for('static', filename='images/oil_plant_slide.webp') }}" alt="Edible Oil Processing Plants">
+                </div>
+                <div class="carousel-slide-overlay"></div>
             </a>
-
-        </div>
-
-        <div class="col-lg-6">
-
-            <div class="solution-box">
-
-                <h4>Our Expertise</h4>
-
-                <ul>
-                    <li>✔ Oil Extraction Plants</li>
-                    <li>✔ Oil Refinery Plants</li>
-                    <li>✔ Material Handling Equipment</li>
-                    <li>✔ Grain Cleaning & Grading</li>
-                    <li>✔ Water Treatment Plants</li>
-                    <li>✔ Effluent Treatment Plants</li>
-                    <li>✔ Turnkey Engineering Projects</li>
-                </ul>
-
+            <div class="carousel-caption">
+                <p class="hero-tagline">Edible Oil Plants</p>
+                <h1>ENGINEERING SOLUTIONS FOR<br><span class="accent-text">MODERN INDUSTRIES</span></h1>
+                <p class="hero-description">
+                    Complete turnkey solutions for edible oil extraction, refining, fractionation, and lecithin extraction.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/contact" class="btn btn-warning btn-lg">Request A Quote</a>
+                    <a href="/projects" class="btn btn-outline-light btn-lg ms-3">View Projects</a>
+                </div>
             </div>
-
         </div>
 
+        <!-- Slide 2: Material Handling Equipment -->
+        <div class="carousel-item">
+            <a href="/products" class="hero-carousel-link" aria-label="Explore Material Handling Solutions">
+                <div class="carousel-slide-image-wrapper">
+                    <img src="{{ url_for('static', filename='images/material_handling_slide.webp') }}" alt="Industrial Material Handling Equipment">
+                </div>
+                <div class="carousel-slide-overlay"></div>
+            </a>
+            <div class="carousel-caption">
+                <p class="hero-tagline">Material Handling</p>
+                <h1>HIGH-CAPACITY MATERIAL<br><span class="accent-text">HANDLING SYSTEMS</span></h1>
+                <p class="hero-description">
+                    Robust conveyors, bucket elevators, and bulk storage systems designed for high reliability and efficiency.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/contact" class="btn btn-warning btn-lg">Request A Quote</a>
+                    <a href="/projects" class="btn btn-outline-light btn-lg ms-3">View Projects</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Grain Handling & Processing -->
+        <div class="carousel-item">
+            <a href="/products" class="hero-carousel-link" aria-label="Explore Grain Processing Solutions">
+                <div class="carousel-slide-image-wrapper">
+                    <img src="{{ url_for('static', filename='images/grain_handling_slide.webp') }}" alt="Grain Cleaning and Processing Machinery">
+                </div>
+                <div class="carousel-slide-overlay"></div>
+            </a>
+            <div class="carousel-caption">
+                <p class="hero-tagline">Grain Processing</p>
+                <h1>EFFICIENT GRAIN HANDLING<br><span class="accent-text">& PROCESSING SYSTEMS</span></h1>
+                <p class="hero-description">
+                    Modern solutions for grain cleaning, grading, storage silos, and automated handling for agro-industries.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/contact" class="btn btn-warning btn-lg">Request A Quote</a>
+                    <a href="/projects" class="btn btn-outline-light btn-lg ms-3">View Projects</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Water & Environmental Solutions -->
+        <div class="carousel-item">
+            <a href="/products" class="hero-carousel-link" aria-label="Explore Water Treatment Solutions">
+                <div class="carousel-slide-image-wrapper">
+                    <img src="{{ url_for('static', filename='images/water_treatment_slide.webp') }}" alt="Industrial Water and Effluent Treatment Plants">
+                </div>
+                <div class="carousel-slide-overlay"></div>
+            </a>
+            <div class="carousel-caption">
+                <p class="hero-tagline">Environmental Solutions</p>
+                <h1>SUSTAINABLE WATER &<br><span class="accent-text">EFFLUENT TREATMENT</span></h1>
+                <p class="hero-description">
+                    Advanced water treatment plants (WTP) and effluent treatment plants (ETP) ensuring environmental compliance.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/contact" class="btn btn-warning btn-lg">Request A Quote</a>
+                    <a href="/projects" class="btn btn-outline-light btn-lg ms-3">View Projects</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-</section>
-
-<!-- PRODUCTS -->
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
 <section class="container py-5">
 
-    <h2 class="section-title text-center">
-        Our Products & Solutions
-    </h2>
 
-    <div class="row g-4">
+<div class="row g-4">
 
-        <div class="col-md-4">
-
-            <div class="product-card">
-
-                <h4>Material Handling Equipment</h4>
-
-                <p>
-                    Conveyors, Elevators,
-                    Screw Conveyors,
-                    Chain Conveyors and more.
-                </p>
-
+    <div class="col-md-3">
+        <a href="/products?product=Solvent%20Extraction%20Plant" class="text-decoration-none text-reset">
+            <div class="product-card h-100">
+                <h3><i class="fa-solid fa-droplet"></i> Oil Extraction Plants</h3>
+                <p>Complete turnkey solutions for edible oil extraction and processing.</p>
             </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="product-card">
-
-                <h4>Oil Processing Plants</h4>
-
-                <p>
-                    Oil Mills, Solvent Extraction Plants,
-                    Refineries, Fractionation &
-                    Lecithin Plants.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="product-card">
-
-                <h4>Packaging Solutions</h4>
-
-                <p>
-                    Oil Filling Machines,
-                    Packaging Lines &
-                    Industrial Automation.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="product-card">
-
-                <h4>Grain Handling Systems</h4>
-
-                <p>
-                    Grain Cleaning,
-                    Grading and
-                    Processing Equipment.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="product-card">
-
-                <h4>Water Treatment Plant</h4>
-
-                <p>
-                    Water Treatment Systems
-                    and Sustainable Solutions.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="product-card">
-
-                <h4>Effluent Treatment Plant</h4>
-
-                <p>
-                    Industrial Wastewater
-                    Treatment & Environmental Solutions.
-                </p>
-
-            </div>
-
-        </div>
-
+        </a>
     </div>
 
-</section>
+    <div class="col-md-3">
+        <a href="/products?product=Oil%20Refinery%20Plant" class="text-decoration-none text-reset">
+            <div class="product-card h-100">
+                <h3><i class="fa-solid fa-industry"></i> Oil Refinery Plants</h3>
+                <p>Design, manufacture and installation of modern refinery systems.</p>
+            </div>
+        </a>
+    </div>
 
-<!-- STATS -->
+    <div class="col-md-3">
+        <a href="/products?product=Belt%20Conveyor" class="text-decoration-none text-reset">
+            <div class="product-card h-100">
+                <h3><i class="fa-solid fa-gears"></i> Material Handling</h3>
+                <p>Conveyors, elevators and bulk material handling systems.</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="/products?product=Oil%20Filling%20Machine" class="text-decoration-none text-reset">
+            <div class="product-card h-100">
+                <h3><i class="fa-solid fa-box-open"></i> Packaging Solutions</h3>
+                <p>Oil packaging and automated filling solutions.</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+
+</section>
 
 <section class="stats">
 
-    <div class="container">
 
-        <div class="row text-center">
+<div class="container">
 
-            <div class="col-md-3">
+    <div class="row text-center">
 
-                <h2>30+</h2>
+        <div class="col-md-3">
+            <h2>30+</h2>
+            <p>Years Industry Experience</p>
+        </div>
 
-                <p>
-                    Years Industry Experience
-                </p>
+        <div class="col-md-3">
+            <h2>3+</h2>
+            <p>Years Company Experience</p>
+        </div>
 
-            </div>
+        <div class="col-md-3">
+            <h2>15+</h2>
+            <p>Major Projects</p>
+        </div>
 
-            <div class="col-md-3">
-
-                <h2>3+</h2>
-
-                <p>
-                    Years Company Experience
-                </p>
-
-            </div>
-
-            <div class="col-md-3">
-
-                <h2>15+</h2>
-
-                <p>
-                    Major Projects
-                </p>
-
-            </div>
-
-            <div class="col-md-3">
-
-                <h2>5+</h2>
-
-                <p>
-                    Countries Served
-                </p>
-
-            </div>
-
+        <div class="col-md-3">
+            <h2>5+</h2>
+            <p>Countries Served</p>
         </div>
 
     </div>
 
-</section>
+</div>
 
-<!-- INDUSTRIES -->
+
+</section>
 
 <section class="container py-5">
 
-    <h2 class="section-title text-center">
-        Industries We Serve
-    </h2>
 
-    <div class="row g-4">
+<h2 class="section-title text-center">
+    Our Core Solutions
+</h2>
 
-        <div class="col-md-4">
-            <div class="industry-card">
-                <h4>Edible Oil Industry</h4>
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <a href="/products?product=Oil%20Refinery%20Plant" class="text-decoration-none text-reset">
+            <div class="service-card h-100">
+                <h4><i class="fa-solid fa-seedling"></i> Edible Oil Plants</h4>
+                <p>Extraction, Refinery, Fractionation and Lecithin Plants.</p>
             </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="industry-card">
-                <h4>Food Processing Industry</h4>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="industry-card">
-                <h4>Grain Processing Industry</h4>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="industry-card">
-                <h4>Water Treatment Sector</h4>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="industry-card">
-                <h4>Industrial Manufacturing</h4>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="industry-card">
-                <h4>Agriculture Industry</h4>
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- PROJECT HIGHLIGHT -->
-
-<section class="container py-5">
-
-    <div class="project-card">
-
-        <h2>
-            Featured International Project
-        </h2>
-
-        <h4>
-            Bakhresa Malawi – Blantyre, Malawi
-        </h4>
-
-        <p>
-            Design, Manufacture, Supply &
-            Installation of Oil Refinery,
-            Solvent Extraction Plant,
-            Packaging Solutions,
-            Material Handling Systems,
-            Water Treatment Plant and
-            Effluent Treatment Plant.
-        </p>
-
-    </div>
-
-</section>
-
-<!-- CTA -->
-
-<section class="page-banner">
-
-    <div class="container">
-
-        <h2>
-            Ready To Start Your Project?
-        </h2>
-
-        <p>
-            Contact our engineering team today for
-            customized industrial solutions.
-        </p>
-
-        <a href="/contact" class="btn btn-warning btn-lg">
-            Request A Quote
         </a>
-
     </div>
+
+    <div class="col-md-4">
+        <a href="/products?product=Grain%20Cleaner" class="text-decoration-none text-reset">
+            <div class="service-card h-100">
+                <h4><i class="fa-solid fa-wheat-awn"></i> Grain Handling Systems</h4>
+                <p>Cleaning, grading and grain processing solutions.</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/products?product=Water%20Treatment%20Plant%20(WTP)" class="text-decoration-none text-reset">
+            <div class="service-card h-100">
+                <h4><i class="fa-solid fa-water"></i> Water & Effluent Treatment</h4>
+                <p>Sustainable industrial water management solutions.</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+
+</section>
+
+<section class="container py-5">
+
+
+<div class="project-card">
+
+    <h2>Featured International Project</h2>
+
+    <h4><i class="fa-solid fa-globe"></i> Bakhresa Malawi – Blantyre, Malawi</h4>
+
+    <p>
+        Design, Manufacture, Supply & Installation of Oil Refinery,
+        Solvent Extraction Plant, Packaging Systems,
+        Material Handling Equipment, Water Treatment Plant
+        and Effluent Treatment Plant.
+    </p>
+
+</div>
+
 
 </section>
 

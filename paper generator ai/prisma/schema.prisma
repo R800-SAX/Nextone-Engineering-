@@ -1,0 +1,41 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  password  String   // hashed using bcryptjs
+  createdAt DateTime @default(now())
+  exams     Exam[]
+}
+
+model Exam {
+  id             String         @id @default(uuid())
+  userId         String
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subject        String
+  topics         String
+  totalMarks     Int
+  difficulty     String
+  status         String         // "DRAFT" | "APPROVED"
+  currentVersion Int            @default(1)
+  questions      String         // JSON serialized list of questions
+  createdAt      DateTime       @default(now())
+  revisions      ExamRevision[]
+}
+
+model ExamRevision {
+  id             String   @id @default(uuid())
+  examId         String
+  exam           Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  version        Int
+  feedback       String?  // The revision request text if rejected
+  questions      String   // JSON serialized questions at this version
+  createdAt      DateTime @default(now())
+}
